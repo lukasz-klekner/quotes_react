@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
 import useHttp from '../hooks/useHttp'
@@ -6,7 +6,7 @@ import { addQuote } from '../lib/api'
 import QuoteForm from '../components/quotes/QuoteForm'
 
 const NewQuote = () => {
-  const { push } = useHistory()
+  const navigate = useNavigate()
   const { sendRequest, status } = useHttp(addQuote)
 
   const addQuoteHandler = (quoteData) => {
@@ -14,8 +14,8 @@ const NewQuote = () => {
   }
 
   useEffect(() => {
-    if (status === 'completed') push('/quotes')
-  }, [status, push])
+    if (status === 'completed') navigate('/quotes')
+  }, [status, navigate])
 
   return (
     <QuoteForm isLoading={status === 'pending'} onAddQuote={addQuoteHandler} />
